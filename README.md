@@ -1,4 +1,4 @@
-# Assignement of workIndia
+# Assignement
 
 Install the modules using *npm i*
 
