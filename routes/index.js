@@ -14,12 +14,15 @@ router.get("/", function (req, res, next) {
 });
 
 // Registeration for new user endpoint
-router.post("/api/signup", function (req, res) {
-  const username = req.body.username;
-  const pass = req.body.password;
-  const email = req.body.email;
+router.post("/api/signup", async function (req, res) {
+  const { username, password, email } = req.body;
 
-  signup(username, pass, email, res);
+  try {
+    await signup(username, password, email, res);
+  } catch (error) {
+    console.error("Signup error: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 // Login for existing user endpoint

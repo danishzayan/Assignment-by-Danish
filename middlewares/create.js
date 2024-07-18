@@ -41,13 +41,11 @@ async function addTrain(trainName, source, dest, seats, atas, atad, res) {
   }
 }
 
-async function signup(username, pass, email, res) {
+async function signup(username, password, email, res) {
   try {
-    // const user_id = 1; // hard coding user_id for now
-
     const result = await client.query(
-      "INSERT INTO users (username, pass, email) values($1, $2, $3);",
-      [username, pass, email]
+      "INSERT INTO users (username, password, email) values($1, $2, $3);",
+      [username, password, email]
     );
 
     return res
