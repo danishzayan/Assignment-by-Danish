@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const pool = require('./connection');
+const client = require('./connection');
 const jwt = require('jsonwebtoken');
 
 const jwtSecret = 'mysecretkey';
@@ -13,7 +13,7 @@ async function createAdmin(username, password) {
 
   const query = 'INSERT INTO admin (username, password) VALUES ($1, $2)';
   const values = [username, hashedPassword];
-  await pool.query(query, values);
+  await client.query(query, values);
 }
 
 
@@ -22,7 +22,7 @@ async function authenticateAdmin(username, password) {
     
     const query = 'SELECT * FROM admin WHERE username = $1';
     const values = [username];
-    const result = await pool.query(query, values);
+    const result = await client.query(query, values);
     const admin = result.rows[0];
   
     const passwordMatches = await bcrypt.compare(password, admin.password);

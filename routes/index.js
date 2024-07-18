@@ -6,7 +6,7 @@ const {
   authenticateAdmin,
   requireAdmin,
 } = require("../middlewares/auth");
-const pool = require("../middlewares/connection");
+const client = require("../middlewares/connection");
 
 // for home page
 router.get("/", function (req, res, next) {

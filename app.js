@@ -7,7 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-const pool = require('./middlewares/connection')
+const client = require('./middlewares/connection')
 
 var app = express();
 
@@ -63,7 +63,7 @@ const createTrainTrable = `create table if not exists trains(
 );`
 
 function createTables(){
-  pool.query(createAdminTable, (err, res)=>{
+  client.query(createAdminTable, (err, res)=>{
     if(err){
       console.error(err);
     }else{      
@@ -71,7 +71,7 @@ function createTables(){
     }
   });
 
-  pool.query(createTrainTrable, (err, res)=>{
+  client.query(createTrainTrable, (err, res)=>{
     if(err){
       console.error(err);
     }else{
@@ -79,7 +79,7 @@ function createTables(){
     }
   });
 
-  pool.query(createUserTable, (err, res)=>{
+  client.query(createUserTable, (err, res)=>{
     if(err){
       console.error(err);
     }else{

@@ -1,4 +1,4 @@
-const pool = require("../middlewares/connection");
+const client = require("../middlewares/connection");
 
 async function createBooking(uid, nSeats) {
   try {
@@ -14,6 +14,7 @@ async function createBooking(uid, nSeats) {
       });
   } catch (err) {
     console.error(err);
+
     return res.status(500).send("Error creating booking.");
   }
 }
@@ -21,12 +22,12 @@ async function createBooking(uid, nSeats) {
 async function addTrain(trainName, source, dest, seats, atas, atad, res) {
   try {
 
-    const result = await pool.query(
+    const result = await client.query(
       "INSERT INTO trains values, ($1, $2, $3, $4, $5, $6);",
       [trainName, source, dest, seats, atas, atad]
     );
 
-    const train_id = await pool
+    const train_id = await client
       .query("select train_id from trains where train_name = $1;", [trainName])
       .then((err) => {
         return res
@@ -44,7 +45,7 @@ async function signup(username, pass, email, res) {
   try {
     // const user_id = 1; // hard coding user_id for now
 
-    const result = await pool.query(
+    const result = await client.query(
       "INSERT INTO users (username, pass, email) values($1, $2, $3);",
       [username, pass, email]
     );
